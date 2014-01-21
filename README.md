@@ -47,10 +47,10 @@ it's value.
 * __url__
   * The URL of the S3 bucket you'd like to generate a
     Bucketlist for
-  * _Default_: the current ``window.location.host``
+  * Default: the current ``window.location.host``
 * __limit__
   * The number of results per page
-  * _Default_: 100
+  * Default: 100
 
 ## Credits
 Bucketlist uses:
