@@ -7,7 +7,7 @@ Demo: http://bucketlist-demo.s3-website-ap-southeast-2.amazonaws.com/
 
 ## About
 In this repo, the ``src`` directory contains the unminified source, and
-the ``public`` directoru contains the latest (minified) build. When using
+the ``public`` directory contains the latest (minified) build. When using
 Bucketlist, you can either go with the "drop-in" solution and use
 ``public/index.html``, which has all of it's references to static assets
 pointing to a Cloudfront CDN containing the latest release, or you could
