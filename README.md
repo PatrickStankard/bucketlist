@@ -34,7 +34,8 @@ within the bucket itself, in another S3 bucket, or anywhere else you'd like.
   or the contents of [src](https://github.com/PatrickStankard/bucketlist/blob/master/src)
 * Update the ``title`` and the ``description`` tags at the top of ``index.html``
 * Uncomment the ``url`` key in the ``window.bucketlistConfig`` object
-  at the top of ``index.html``, and change it to the URL of your S3 bucket
+  at the top of ``index.html``
+  * Change it to the URL of your S3 bucket
 * Upload it to wherever you'd like to host it
 
 ## Options
