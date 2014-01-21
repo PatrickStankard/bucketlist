@@ -26,15 +26,15 @@ within the bucket itself, in another S3 bucket, or anywhere else you'd like.
 ### Hosted in the same S3 bucket
 * Fetch either [public/index.html](https://github.com/PatrickStankard/bucketlist/blob/master/public/index.html),
   or the contents of [src](https://github.com/PatrickStankard/bucketlist/blob/master/src)
-* Update the ``title`` and the ``description`` tags in ``index.html``
+* Update the ``title`` and the ``description`` tags at the top of ``index.html``
 * Upload it to your bucket
 
 ### Hosted in another S3 bucket, or anywhere else
 * Fetch either [public/index.html](https://github.com/PatrickStankard/bucketlist/blob/master/public/index.html),
   or the contents of [src](https://github.com/PatrickStankard/bucketlist/blob/master/src)
-* Update the ``title`` and the ``description`` tags in ``index.html``
+* Update the ``title`` and the ``description`` tags at the top of ``index.html``
 * Uncomment the ``url`` key in the ``window.bucketlistConfig`` object
-  in ``index.html`` and change it to the URL of your S3 bucket
+  at the top of ``index.html`` and change it to the URL of your S3 bucket
 * Upload it to wherever you'd like to host it
 
 ## Options
