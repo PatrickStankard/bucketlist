@@ -10,8 +10,8 @@ Demo: http://bucketlist-demo.s3-website-ap-southeast-2.amazonaws.com/
 latest (minified) build. When using Bucketlist, you can either go with
 the "drop-in" solution and use ``public/index.html``, which has all of
 it's references to static assets pointing to a Cloudfront CDN containing
-the latest release, or use ``src`` and host the whole kit and kaboodle
-yourself.
+the latest release, or go with ``src`` and host the whole kit and
+kaboodle yourself.
 
 ## Prerequisites
 * Edit your S3 bucket's permissions
