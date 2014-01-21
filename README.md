@@ -43,11 +43,11 @@ Bucketlist takes 2 user configurable options in the form of the
 ``index.html``. To modify an option, simply uncomment it and change
 it's value.
 
-* url
+* __url__
   * The URL of the S3 bucket you'd like to generate a
     Bucketlist for
   * _Default_: the current ``window.location.host``
-* limit
+* __limit__
   * The number of results per page
   * _Default_: 100
 
