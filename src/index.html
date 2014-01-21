@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- NOTE: Update the following title with one of your own -->
+    <title>Bucketlist</title>
+    <!-- NOTE: Update the following description with one of your own -->
+    <meta name="description" content="A file and directory listing for my Amazon S3 bucket.">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?_=">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <!-- Bucketlist -->
+    <link rel="stylesheet" href="css/bucketlist.css?_=">
+    <!-- Bucketlist Config -->
+    <script type="text/javascript">
+      window.bucketlistConfig = {
+        url: 's3-ap-southeast-2.amazonaws.com/bucketlist-demo',
+        // limit: 100
+      };
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="navbar-header">
+        <a id="bucketlist-title" class="navbar-brand" href="#!/"></a>
+      </div>
+    </nav>
+    <div id="bucketlist-container" class="container hidden">
+      <div class="row">
+        <div class="col-md-12">
+          <ol id="bucketlist-breadcrumb" class="breadcrumb"></ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="bucketlist-table-container" class="table-responsive">
+            <table class="bucketlist-table"></table>
+          </div>
+          <ul id="bucketlist-pager-container" class="pager">
+            <li class="previous disabled">
+              <a>&larr; Previous</a>
+            </li>
+            <li class="next disabled">
+              <a>Next &rarr;</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="bucketlist-loader-container" class="container hidden">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+          <div id="bucketlist-loader-gif" class="center-block"></div>
+        </div>
+      </div>
+    </div>
+    <div id="bucketlist-error-container" class="container hidden">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-danger">
+            <div id="bucketlist-error-heading" class="panel-heading"></div>
+            <div class="panel-body">
+              <img id="bucketlist-error-gif" class="center-block img-responsive img-rounded" src="img/error.gif?_=" alt="Error">
+              <p class="text-center">Please make sure your S3 bucket's permissions and CORS configuration are set correctly and try again.</p>
+            </div>
+            <div class="panel-footer">
+              <button id="bucketlist-error-retry" type="button" class="btn btn-default btn-block">Retry</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bucketlist-table-base" class="hidden">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>
+              <span class="bucketlist-table-head-label">Type</span>
+              <span class="bucketlist-sort-icon text-right invisible">Type</span>
+            </th>
+            <th>
+              <span class="bucketlist-table-head-label">Name</span>
+              <span class="bucketlist-sort-icon text-right invisible">Name</span>
+            </th>
+            <th>
+              <span class="bucketlist-table-head-label">Last Modified</span>
+              <span class="bucketlist-sort-icon text-right invisible">Last Modified</span>
+            </th>
+            <th>
+              <span class="bucketlist-table-head-label">Size</span>
+              <span class="bucketlist-sort-icon text-right invisible">Size</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- Sortable -->
+    <script src="js/sortable.js?_="></script>
+    <!-- Bucketlist -->
+    <script src="js/bucketlist.js?_="></script>
+    <script type="text/javascript">
+      new window.Bucketlist();
+    </script>
+  </body>
+</html>

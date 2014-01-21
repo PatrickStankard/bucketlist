@@ -1,0 +1,19 @@
+{
+  "name": "bucketlist",
+  "version": "0.0.1",
+  "description": "An Apache-like index for viewing the file and directory listing of an Amazon S3 bucket.",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-text-replace": "~0.3.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PatrickStankard/bucketlist.git"
+  },
+  "author": "Patrick Stankard <me@patrickstankard.com>",
+  "license": "MIT"
+}
