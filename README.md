@@ -3,7 +3,7 @@ bucketlist
 
 An Apache-like index for viewing the file and directory listing of an Amazon S3 bucket.
 
-*Demo*: http://bucketlist-demo.s3-website-ap-southeast-2.amazonaws.com/
+__Demo__: http://bucketlist-demo.s3-website-ap-southeast-2.amazonaws.com/
 
 ## About
 In this repo, the ``src`` directory contains the unminified source, and
