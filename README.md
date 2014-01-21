@@ -6,12 +6,12 @@ An Apache-like index for viewing the file and directory listing of an Amazon S3 
 Demo: http://bucketlist-demo.s3-website-ap-southeast-2.amazonaws.com/
 
 ## About
-``src`` contains the unminified source, and ``public`` contains the
-latest (minified) build. When using Bucketlist, you can either go with
-the "drop-in" solution and use ``public/index.html``, which has all of
-it's references to static assets pointing to a Cloudfront CDN containing
-the latest release, or go with ``src`` and host the whole kit and
-kaboodle yourself.
+In this repo, the ``src`` directory contains the unminified source, and
+the ``public`` directoru contains the latest (minified) build. When using
+Bucketlist, you can either go with the "drop-in" solution and use
+``public/index.html``, which has all of it's references to static assets
+pointing to a Cloudfront CDN containing the latest release, or you could
+go with ``src`` just and host the whole kit and kaboodle yourself.
 
 ## Prerequisites
 * Edit your S3 bucket's permissions
