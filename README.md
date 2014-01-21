@@ -51,7 +51,7 @@ it's value.
 
 ## Credits
 Bucketlist uses:
-* (jQuery)[https://github.com/jquery/jquery]
-* (Bootstrap)[https://github.com/twbs/bootstrap]
-* (Sortable)[https://github.com/HubSpot/sortable]
+* [jQuery](https://github.com/jquery/jquery)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [Sortable](https://github.com/HubSpot/sortable)
 
