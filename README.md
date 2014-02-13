@@ -17,7 +17,7 @@ go with ``src`` just and host the whole kit and kaboodle yourself.
 * Edit your S3 bucket's permissions
   * Enable "List" permissions for the grantee "Everyone"
     * http://docs.aws.amazon.com/AmazonS3/latest/UG/EditingBucketPermissions.html
-  * Add a rule to the CORS configuration to allow any origin to GET
+  * Add a rule to the CORS configuration to allow all origins ("*") to GET
     * http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html#how-do-i-enable-cors
 
 ## Configuration
