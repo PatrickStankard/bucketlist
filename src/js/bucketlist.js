@@ -1,15 +1,18 @@
 /* global Sortable */
 
-(function(w) {
+(function(window, document, $, undefined) {
   'use strict';
 
-  w.Bucketlist = function(params) {
-    var self, sources, options, endpoints,
-        bucket, region, x, y,
-        xLen, yLen;
+  window.Bucketlist = function(params) {
+    var sources, options, endpoints, bucket,
+        region, x, y, xLen,
+        yLen;
 
-    self = this;
-    sources = [params, w.bucketlistConfig];
+    sources = [
+      params,
+      window.bucketlistConfig
+    ];
+
     options = [
       'url',
       'limit'
@@ -19,18 +22,18 @@
       if (typeof sources[x] !== 'undefined') {
         for (y = 0, yLen = options.length; y < yLen; y++) {
           if (typeof sources[x][options[y]] !== 'undefined') {
-            self[options[y]] = sources[x][options[y]];
+            this[options[y]] = sources[x][options[y]];
           }
         }
       }
     }
 
-    self.nameIcon = {
+    this.nameIcon = {
       file: 'glyphicon-file',
       directory: 'glyphicon-folder-close'
     };
 
-    self.nameLabel = {
+    this.nameLabel = {
       file: 'label-success',
       directory: 'label-warning'
     };
@@ -46,192 +49,186 @@
       'sa-east-1': 's3-sa-east-1.amazonaws.com'
     };
 
-    if (typeof self.url === 'undefined') {
-      self.url = w.location.host;
+    if (typeof this.url === 'undefined') {
+      this.url = window.location.host;
     }
 
-    self.url = self.url.toLowerCase()
+    this.url = this.url.toLowerCase()
                        .replace(/^\b.*?\b:/, '')
                        .replace(/^\/{1,}/, '')
                        .replace(/\/{1,}$/, '')
                        .trim();
 
-    if (self.url.indexOf('.s3-website-') !== -1) {
-      self.url = self.url.split('.s3-website-');
+    if (this.url.indexOf('.s3-website-') !== -1) {
+      this.url = this.url.split('.s3-website-');
 
-      bucket = self.url[0].replace(/^\/{1,}/, '')
+      bucket = this.url[0].replace(/^\/{1,}/, '')
                           .trim();
 
-      region = self.url[1].split('.amazonaws.com')[0]
+      region = this.url[1].split('.amazonaws.com')[0]
                           .replace(/^\/{1,}/, '')
                           .replace(/\/{1,}$/, '')
                           .trim();
 
-      self.url = endpoints[region] + '/' + bucket;
+      this.url = endpoints[region] + '/' + bucket;
     } else {
       for (var z in endpoints) {
-        if (self.url === endpoints[z]) {
-          bucket = self.url.split('/')[1]
+        if (this.url === endpoints[z]) {
+          bucket = this.url.split('/')[1]
                            .replace(/^\/{1,}/, '')
                            .replace(/\/{1,}$/, '')
                            .trim();
 
-          self.url = self.url + '/' + bucket;
+          this.url = this.url + '/' + bucket;
 
           break;
         }
       }
     }
 
-    self.url = '//' + self.url;
+    this.url = '//' + this.url;
 
-    self.url = $('<a></a>').attr('href', self.url)[0];
+    this.url = $('<a></a>').attr('href', this.url)[0];
 
-    self.url = '//' + self.url.hostname + self.url.pathname;
+    this.url = '//' + this.url.hostname + this.url.pathname;
 
-    self.url = self.url.replace(/\/{1,}$/, '')
+    this.url = this.url.replace(/\/{1,}$/, '')
                        .trim();
 
-    if (typeof self.limit === 'number') {
-      self.limit = parseInt(self.limit, 10);
+    if (typeof this.limit === 'number') {
+      this.limit = parseInt(this.limit, 10);
     }
 
-    if (isNaN(self.limit) || self.limit <= 0) {
-      self.limit = 100;
+    if (isNaN(this.limit) === true || this.limit <= 0) {
+      this.limit = 100;
     }
 
-    self.delimiter = '/';
+    this.delimiter = '/';
 
-    self.title = document.title.trim();
+    this.title = document.title.trim();
 
-    if (self.title === '') {
-      self.title = 'Bucketlist';
+    if (this.title === '') {
+      this.title = 'Bucketlist';
     }
 
     $(function() {
-      self.$title = $('#bucketlist-title');
-      self.$container = $('#bucketlist-container');
-      self.$breadcrumb = $('#bucketlist-breadcrumb');
-      self.$tableBase = $('#bucketlist-table-base');
-      self.$tableContainer = $('#bucketlist-table-container');
-      self.$pagerContainer = $('#bucketlist-pager-container');
-      self.$loaderContainer = $('#bucketlist-loader-container');
-      self.$errorContainer = $('#bucketlist-error-container');
-      self.$errorHeading = $('#bucketlist-error-heading');
-      self.$errorRetry = $('#bucketlist-error-retry');
+      this.$title = $('#bucketlist-title');
+      this.$container = $('#bucketlist-container');
+      this.$breadcrumb = $('#bucketlist-breadcrumb');
+      this.$tableBase = $('#bucketlist-table-base');
+      this.$tableContainer = $('#bucketlist-table-container');
+      this.$pagerContainer = $('#bucketlist-pager-container');
+      this.$loaderContainer = $('#bucketlist-loader-container');
+      this.$errorContainer = $('#bucketlist-error-container');
+      this.$errorHeading = $('#bucketlist-error-heading');
+      this.$errorRetry = $('#bucketlist-error-retry');
 
-      self.assignTableSelector();
+      this.assignTableSelector();
 
-      self.$title.text(self.title);
+      this.$title.text(this.title);
 
-      self.$pagerContainer.on('click', 'LI:not(.disabled) > A', function() {
-        var action = $(this).parent().attr('class');
+      this.$pagerContainer.on('click', 'LI:not(.disabled) > A', function(e) {
+        var action = $(e.currentTarget).parent().attr('class');
 
         if (typeof action !== 'undefined') {
-          self.navigatePaginator({
+          this.navigatePaginator({
             action: action
           });
         }
-      });
+      }.bind(this));
 
-      $(w).on('hashchange', function() {
-        self.init();
-      });
+      $(window).on('hashchange', function() {
+        this.init();
+      }.bind(this));
 
-      self.init();
-    });
+      this.init();
+    }.bind(this));
   };
 
-  w.Bucketlist.prototype.init = function() {
+  window.Bucketlist.prototype.init = function() {
     this.resetPage();
     this.resetMarker();
     this.navigate();
   };
 
-  w.Bucketlist.prototype.resetPage = function() {
+  window.Bucketlist.prototype.resetPage = function() {
     this.page = 0;
   };
 
-  w.Bucketlist.prototype.resetMarker = function() {
+  window.Bucketlist.prototype.resetMarker = function() {
     this.marker = {
       current: '',
       index: ['']
     };
   };
 
-  w.Bucketlist.prototype.assignTableSelector = function() {
+  window.Bucketlist.prototype.assignTableSelector = function() {
     this.$table = $(
       '#bucketlist-table-container > TABLE.bucketlist-table:first'
     );
   };
 
-  w.Bucketlist.prototype.showContainer = function(container) {
+  window.Bucketlist.prototype.showContainer = function(container) {
     container.removeClass('hidden');
   };
 
-  w.Bucketlist.prototype.hideContainer = function(container) {
+  window.Bucketlist.prototype.hideContainer = function(container) {
     container.addClass('hidden');
   };
 
-  w.Bucketlist.prototype.navigate = function() {
-    var self, hash, params;
+  window.Bucketlist.prototype.navigate = function() {
+    var hash, params;
 
-    self = this;
-    hash = w.location.hash.replace(/^#!\//, '')
-                          .trim();
+    hash = window.location.hash.replace(/^#!\//, '')
+                               .trim();
 
     hash = decodeURIComponent(hash);
 
     params = {
       prefix: hash,
-      delimiter: self.delimiter,
-      marker: self.marker.current,
-      'max-keys': self.limit
+      delimiter: this.delimiter,
+      marker: this.marker.current,
+      'max-keys': this.limit
     };
 
-    self.fetchList(params);
+    this.fetchList(params);
   };
 
-  w.Bucketlist.prototype.fetchList = function(params) {
-    var self = this;
+  window.Bucketlist.prototype.fetchList = function(params) {
+    this.hideContainer(this.$container);
+    this.hideContainer(this.$errorContainer);
+    this.showContainer(this.$loaderContainer);
 
-    self.hideContainer(self.$container);
-    self.hideContainer(self.$errorContainer);
-    self.showContainer(self.$loaderContainer);
+    this.$table.empty().remove();
 
-    self.$table.empty().remove();
-
-    self.$tableContainer.empty()
-                        .html(self.$tableBase.html())
+    this.$tableContainer.empty()
+                        .html(this.$tableBase.html())
                         .find('TABLE:first')
                         .addClass('bucketlist-table');
 
-    self.assignTableSelector();
+    this.assignTableSelector();
 
     $.ajax({
-      url: self.url,
+      url: this.url,
       dataType: 'xml',
       data: params,
       success: function(res) {
-        self.parseReturn({
+        this.parseReturn({
           xml: res,
           prefix: params.prefix
         });
-      },
+      }.bind(this),
       error: function(err) {
-        self.ajaxErrorHandler({
+        this.ajaxErrorHandler({
           error: err,
           retry: params
         });
-      }
+      }.bind(this)
     });
   };
 
-  w.Bucketlist.prototype.ajaxErrorHandler = function(params) {
-    var self, heading;
-
-    self = this;
-    heading = '';
+  window.Bucketlist.prototype.ajaxErrorHandler = function(params) {
+    var heading = '';
 
     if (typeof params.error !== 'undefined') {
       if (typeof params.error.status !== 'undefined' &&
@@ -249,21 +246,20 @@
       heading = 'Error';
     }
 
-    self.$errorHeading.empty().text(heading);
+    this.$errorHeading.empty().text(heading);
 
-    self.$errorRetry.one('click', function() {
-      self.fetchList(params.retry);
-    });
+    this.$errorRetry.one('click', function() {
+      this.fetchList(params.retry);
+    }.bind(this));
 
-    self.hideContainer(self.$container);
-    self.hideContainer(self.$loaderContainer);
-    self.showContainer(self.$errorContainer);
+    this.hideContainer(this.$container);
+    this.hideContainer(this.$loaderContainer);
+    this.showContainer(this.$errorContainer);
   };
 
-  w.Bucketlist.prototype.parseReturn = function(params) {
-    var self, list, xml, marker;
+  window.Bucketlist.prototype.parseReturn = function(params) {
+    var list, xml, marker;
 
-    self = this;
     list = {};
     xml = $(params.xml);
     marker = '';
@@ -296,25 +292,25 @@
              '';
 
     if (marker !== '') {
-      self.marker.index[self.page + 1] = marker;
+      this.marker.index[this.page + 1] = marker;
     }
 
-    self.generateTable({
+    this.generateTable({
       list: list,
       prefix: params.prefix
     });
 
-    self.generateBreadcrumb({
+    this.generateBreadcrumb({
       prefix: params.prefix
     });
 
-    self.updatePaginator();
+    this.updatePaginator();
 
-    self.hideContainer(self.$loaderContainer);
-    self.showContainer(self.$container);
+    this.hideContainer(this.$loaderContainer);
+    this.showContainer(this.$container);
   };
 
-  w.Bucketlist.prototype.parseItemSize = function(params) {
+  window.Bucketlist.prototype.parseItemSize = function(params) {
     switch(params.bytes) {
       case undefined:
       case null:
@@ -334,10 +330,9 @@
            sizes[i];
   };
 
-  w.Bucketlist.prototype.generateTable = function(params) {
-    var self, tbody, row;
+  window.Bucketlist.prototype.generateTable = function(params) {
+    var tbody, row;
 
-    self = this;
     tbody = [];
 
     row = $([
@@ -386,9 +381,9 @@
              .find('TD.type')
              .attr('data-value', res[y].type)
              .find('SPAN.label')
-             .addClass(self.nameLabel[res[y].type])
+             .addClass(this.nameLabel[res[y].type])
              .find('SPAN.glyphicon')
-             .addClass(self.nameIcon[res[y].type]);
+             .addClass(this.nameIcon[res[y].type]);
 
           lastModified = {
             parsed: new Date(
@@ -412,7 +407,7 @@
                  0
           };
 
-          size.parsed = self.parseItemSize({bytes: size.raw});
+          size.parsed = this.parseItemSize({bytes: size.raw});
 
           url = name;
 
@@ -421,7 +416,7 @@
               url = '#!/' + encodeURIComponent(params.prefix + url);
               break;
             default:
-              url = self.url + '/' + params.prefix + url;
+              url = this.url + '/' + params.prefix + url;
               break;
           }
 
@@ -451,9 +446,9 @@
       }
     }
 
-    self.assignTableSelector();
+    this.assignTableSelector();
 
-    self.$table
+    this.$table
         .attr('data-sortable', '')
         .find('tbody:first')
         .empty()
@@ -462,60 +457,55 @@
     Sortable.init();
   };
 
-  w.Bucketlist.prototype.updatePaginator = function() {
-    var self, previous, next;
+  window.Bucketlist.prototype.updatePaginator = function() {
+    var previous, next;
 
-    self = this;
-    previous = self.$pagerContainer.find('LI.previous:first');
-    next = self.$pagerContainer.find('LI.next:first');
+    previous = this.$pagerContainer.find('LI.previous:first');
+    next = this.$pagerContainer.find('LI.next:first');
 
-    self.hideContainer(self.$pagerContainer);
+    this.hideContainer(this.$pagerContainer);
 
     previous.addClass('disabled');
     next.addClass('disabled');
 
-    if (self.page > 0) {
+    if (this.page > 0) {
       previous.removeClass('disabled');
     }
 
-    if (self.page < self.marker.index.length - 1) {
+    if (this.page < this.marker.index.length - 1) {
       next.removeClass('disabled');
     }
 
     if (!previous.hasClass('disabled') || !next.hasClass('disabled')) {
-      self.showContainer(self.$pagerContainer);
+      this.showContainer(this.$pagerContainer);
     }
   };
 
-  w.Bucketlist.prototype.navigatePaginator = function(params) {
-    var self, step;
-
-    self = this;
+  window.Bucketlist.prototype.navigatePaginator = function(params) {
+    var step;
 
     if (typeof params.action === 'string') {
       switch (params.action) {
         case 'previous':
-          self.page--;
+          this.page--;
           break;
         case 'next':
-          self.page++;
+          this.page++;
           break;
       }
 
-      step = self.marker.index[self.page];
+      step = this.marker.index[this.page];
 
       if (typeof step === 'string') {
-        self.marker.current = step;
-        self.navigate();
+        this.marker.current = step;
+        this.navigate();
       }
     }
   };
 
-  w.Bucketlist.prototype.generateBreadcrumb = function(params) {
-    var self, crumbs, li, ol,
-        prefix, len, x;
-
-    self = this;
+  window.Bucketlist.prototype.generateBreadcrumb = function(params) {
+    var crumbs, li, ol, prefix,
+        len, x;
 
     crumbs = [];
 
@@ -542,8 +532,8 @@
       }
     }
 
-    self.$breadcrumb
+    this.$breadcrumb
         .empty()
         .html(ol.join(''));
   };
-})(window);
+})(window, document, jQuery);
