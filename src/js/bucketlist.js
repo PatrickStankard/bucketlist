@@ -211,7 +211,7 @@
     $.ajax({
       url: this.url,
       dataType: 'xml',
-      data: params,
+      data: $.param(params).replace(/\+/g, '%20'),
       success: function(res) {
         this.parseReturn({
           xml: res,
