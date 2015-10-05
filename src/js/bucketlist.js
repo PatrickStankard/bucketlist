@@ -15,7 +15,8 @@
 
     options = [
       'url',
-      'limit'
+      'limit',
+      'ignore',
     ];
 
     for (x = 0, xLen = sources.length; x < xLen; x++) {
@@ -266,25 +267,32 @@
 
     list.files = $.map(xml.find('Contents'), function(x) {
       x = $(x);
-
-      return {
-        name: x.find('Key:first').text(),
-        lastModified: x.find('LastModified:first').text(),
-        size: x.find('Size:first').text(),
-        type: 'file'
-      };
-    });
+      var filename = x.find('Key:first').text();
+      if($.inArray(filename, this.ignore) <= -1)
+      {
+        return {
+          name: filename,
+          lastModified: x.find('LastModified:first').text(),
+          size: x.find('Size:first').text(),
+          type: 'file'
+        };
+      }
+    }.bind(this));
 
     list.dirs = $.map(xml.find('CommonPrefixes'), function(x) {
       x = $(x);
 
-      return {
-        name: x.find('Prefix:first').text(),
-        lastModified: '',
-        size: '0',
-        type: 'directory'
-      };
-    });
+      var filename = x.find('Prefix:first').text();
+      if($.inArray(filename, this.ignore) <= -1)
+      {
+        return {
+          name: x.find('Prefix:first').text(),
+          lastModified: '',
+          size: '0',
+          type: 'directory'
+        };
+      }
+    }.bind(this));
 
     marker = xml.find('NextMarker');
     marker = marker.length !== 0 ?

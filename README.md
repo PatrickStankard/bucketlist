@@ -41,7 +41,7 @@ within the bucket itself, in another S3 bucket, or anywhere else you'd like.
 * Upload it to wherever you'd like to host it
 
 ## Options
-Bucketlist takes 2 user configurable options in the form of the
+Bucketlist takes 3 user configurable options in the form of the
 ``window.bucketlistConfig`` object, which can be found in the top of
 ``index.html``. To modify an option, simply uncomment it and change
 it's value.
@@ -53,6 +53,10 @@ it's value.
 * __limit__
   * The number of results per page
   * Default: 100
+*__ignore__
+  * An array of filenames and folder names (with trailing slash) to ignore
+  * Default: none
+  * Example: ['index.html', 'js/']
 
 ## Credits
 Bucketlist uses:
